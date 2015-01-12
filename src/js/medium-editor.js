@@ -891,6 +891,16 @@ else if (typeof define === 'function' && define.amd) {
             var i;
             this.selection = newSelection;
             this.selectionRange = this.selection.getRangeAt(0);
+
+            if (
+                this.selection.anchorNode === this.selectionRange.endContainer
+                && this.selection.anchorNode !== this.selectionRange.startContainer
+                && this.selection.anchorOffset === 0
+            ) {
+              this.selectionRange.setStart(this.selection.anchorNode, 1);
+            }
+
+
             for (i = 0; i < this.elements.length; i += 1) {
                 if (this.elements[i] === selectionElement) {
                     this.setToolbarButtonStates()
