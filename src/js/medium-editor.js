@@ -225,7 +225,27 @@ else if (typeof define === 'function' && define.amd) {
         isIE: ((navigator.appName === 'Microsoft Internet Explorer') || ((navigator.appName === 'Netscape') && (new RegExp('Trident/.*rv:([0-9]{1,}[.0-9]{0,})').exec(navigator.userAgent) !== null))),
 
         init: function (elements, options) {
-            var uniqueId = 1;
+            var uniqueId = 1,
+              self = this;
+
+            // handleBlur is debounced because:
+            // - This method could be called many times due to the type of event handlers that are calling it
+            // - We want a slight delay so that other events in the stack can run, some of which may
+            //   prevent the toolbar from being hidden (via this.keepToolbarAlive).
+
+            this.handleBlur = debounce(function() {
+                if ( !self.keepToolbarAlive ) {
+                    self.hideToolbarActions();
+                }
+            }),
+
+            // handleResize is debounced because:
+            // - It will be called when the browser is resizing, which can fire many times very quickly
+            // - For some event (like resize) a slight lag in UI responsiveness is OK and provides performance benefits
+            this.handleResize = debounce(function() {
+                self.positionToolbarIfShown();
+            }),
+
 
             this.options = extend(options, this.defaults);
             this.setElementSelection(elements);
@@ -318,16 +338,6 @@ else if (typeof define === 'function' && define.amd) {
                 this.elements = [this.elements];
             }
         },
-
-        // handleBlur is debounced because:
-        // - This method could be called many times due to the type of event handlers that are calling it
-        // - We want a slight delay so that other events in the stack can run, some of which may
-        //   prevent the toolbar from being hidden (via this.keepToolbarAlive).
-        handleBlur: debounce(function() {
-            if ( !this.keepToolbarAlive ) {
-                this.hideToolbarActions();
-            }
-        }),
 
         bindBlur: function(i) {
             var self = this,
@@ -1600,13 +1610,6 @@ else if (typeof define === 'function' && define.amd) {
                 this.setToolbarPosition();
             }
         },
-
-        // handleResize is debounced because:
-        // - It will be called when the browser is resizing, which can fire many times very quickly
-        // - For some event (like resize) a slight lag in UI responsiveness is OK and provides performance benefits
-        handleResize: debounce(function() {
-            this.positionToolbarIfShown();
-        }),
 
         bindWindowActions: function () {
             var self = this;
