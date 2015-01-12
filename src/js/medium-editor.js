@@ -828,11 +828,21 @@ else if (typeof define === 'function' && define.amd) {
             return this;
         },
 
+        stopSelectionUpdates: function() {
+            this.selectionUpdatesDisabled = true;
+        },
+
+        startSelectionUpdates: function() {
+            this.selectionUpdatesDisabled = false;
+        },
+
         checkSelection: function () {
             var newSelection,
                 selectionElement;
 
-            if (this.keepToolbarAlive !== true && !this.options.disableToolbar) {
+            if (this.keepToolbarAlive !== true && 
+                !this.options.disableToolbar &&
+                !this.selectionUpdatesDisabled) {
 
                 newSelection = this.options.contentWindow.getSelection();
                 if ((!this.options.updateOnEmptySelection && newSelection.toString().trim() === '') ||
