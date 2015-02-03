@@ -1118,11 +1118,16 @@ else if (typeof define === 'function' && define.amd) {
             ) {
                 console.log("MediumEditor ID#" + this.id + " about to call findAdjacentTextNodeWithContent");
                 adjacentNode = findAdjacentTextNodeWithContent(this.getSelectionElement(), this.selectionRange.startContainer, this.options.ownerDocument);
+                console.log(this.id + " MediumEditor.checkSelectionElement continuing: line 1121");
                 if (adjacentNode) {
+                    console.log(this.id + " MediumEditor.checkSelectionElement continuing: line 1123");
                     offset = 0;
+                    console.log(this.id + " MediumEditor.checkSelectionElement continuing with nodeValue: '" +
+                            adjacentNode.nodeValue + "' (length " + adjacentNode.nodeValue.length + ")");
                     while(adjacentNode.nodeValue.substr(offset, 1).trim().length === 0) {
                         offset = offset + 1;
                     }
+                    console.log(this.id + " MediumEditor.checkSelectionElement continuing: line 1128");
                     newRange = this.options.ownerDocument.createRange();
                     newRange.setStart(adjacentNode, offset);
                     newRange.setEnd(this.selectionRange.endContainer, this.selectionRange.endOffset);
@@ -1132,7 +1137,6 @@ else if (typeof define === 'function' && define.amd) {
                 }
             }
 
-            console.log(this.id + " MediumEditor.checkSelectionElement continuing 2");
 
             for (i = 0; i < this.elements.length; i += 1) {
                 if (this.elements[i] === selectionElement) {
