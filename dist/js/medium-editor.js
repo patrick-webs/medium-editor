@@ -97,12 +97,12 @@ else if (typeof define === 'function' && define.amd) {
     //  - A sibling text node of an ancestor
     //  - A descendant of a sibling element of an ancestor
     function findAdjacentTextNodeWithContent(rootNode, targetNode, ownerDocument) {
-        window.alert("findAdjacentTextNodeWithContent: at start");
+        console.log("findAdjacentTextNodeWithContent: at start");
         var pastTarget = false,
             nextNode,
             nodeIterator = ownerDocument.createNodeIterator(rootNode, NodeFilter.SHOW_TEXT, null, false);
 
-        window.alert("findAdjacentTextNodeWithContent: about to start iterating");
+        console.log("findAdjacentTextNodeWithContent: about to start iterating");
         // Use a native NodeIterator to iterate over all the text nodes that are descendants
         // of the rootNode.  Once past the targetNode, choose the first non-empty text node
         nextNode = nodeIterator.nextNode();
@@ -116,7 +116,7 @@ else if (typeof define === 'function' && define.amd) {
             }
             nextNode = nodeIterator.nextNode();
         }
-        window.alert("findAdjacentTextNodeWithContent: node identified");
+        console.log("findAdjacentTextNodeWithContent: node identified");
 
         return nextNode;
     }
@@ -1011,6 +1011,7 @@ else if (typeof define === 'function' && define.amd) {
                     return false;
                 }
 
+                console.log(self.id + " MediumEditor.checkSelectionWrapper from event " + e.type + " with timestamp " + e.timeStamp);
                 self.checkSelection();
             };
 
@@ -1114,7 +1115,7 @@ else if (typeof define === 'function' && define.amd) {
                 this.selectionRange.startContainer.nodeValue &&
                 (this.selectionRange.startOffset === this.selectionRange.startContainer.nodeValue.length)
             ) {
-                window.alert("MediumEditor ID#" + this.id + " about to call findAdjacentTextNodeWithContent");
+                console.log("MediumEditor ID#" + this.id + " about to call findAdjacentTextNodeWithContent");
                 adjacentNode = findAdjacentTextNodeWithContent(this.getSelectionElement(), this.selectionRange.startContainer, this.options.ownerDocument);
                 if (adjacentNode) {
                     offset = 0;
