@@ -98,10 +98,12 @@ else if (typeof define === 'function' && define.amd) {
     //  - A sibling text node of an ancestor
     //  - A descendant of a sibling element of an ancestor
     function findAdjacentTextNodeWithContent(rootNode, targetNode, ownerDocument) {
+        window.alert("findAdjacentTextNodeWithContent: at start");
         var pastTarget = false,
             nextNode,
             nodeIterator = ownerDocument.createNodeIterator(rootNode, NodeFilter.SHOW_TEXT, null, false);
 
+        window.alert("findAdjacentTextNodeWithContent: about to start iterating");
         // Use a native NodeIterator to iterate over all the text nodes that are descendants
         // of the rootNode.  Once past the targetNode, choose the first non-empty text node
         nextNode = nodeIterator.nextNode();
@@ -115,6 +117,7 @@ else if (typeof define === 'function' && define.amd) {
             }
             nextNode = nodeIterator.nextNode();
         }
+        window.alert("findAdjacentTextNodeWithContent: node identified");
 
         return nextNode;
     }
