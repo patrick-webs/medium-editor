@@ -1115,6 +1115,7 @@ else if (typeof define === 'function' && define.amd) {
                 this.selectionRange.startContainer.nodeValue &&
                 (this.selectionRange.startOffset === this.selectionRange.startContainer.nodeValue.length)
             ) {
+                window.alert("MediumEditor ID#" + this.id + " about to call findAdjacentTextNodeWithContent");
                 adjacentNode = findAdjacentTextNodeWithContent(this.getSelectionElement(), this.selectionRange.startContainer, this.options.ownerDocument);
                 if (adjacentNode) {
                     offset = 0;
