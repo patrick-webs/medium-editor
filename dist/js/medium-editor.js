@@ -1091,7 +1091,7 @@ else if (typeof define === 'function' && define.amd) {
                 newRange;
             this.selection = newSelection;
             this.selectionRange = this.selection.getRangeAt(0);
-            console.log("MediumEditor.checkSelectionElement at start offset " + this.selectionRange.startOffset);
+            console.log(this.id + " MediumEditor.checkSelectionElement at start offset " + this.selectionRange.startOffset);
 
             /*
             * In firefox, there are cases (ie doubleclick of a word) where the selectionRange start
@@ -1130,7 +1130,7 @@ else if (typeof define === 'function' && define.amd) {
                 }
             }
 
-            console.log("MediumEditor.checkSelectionElement continuing 2");
+            console.log(this.id + " MediumEditor.checkSelectionElement continuing 2");
 
             for (i = 0; i < this.elements.length; i += 1) {
                 if (this.elements[i] === selectionElement) {
@@ -1145,7 +1145,7 @@ else if (typeof define === 'function' && define.amd) {
                 this.hideToolbarActions();
             }
 
-            console.log("MediumEditor.checkSelectionElement continuing 3");
+            console.log(this.id + " MediumEditor.checkSelectionElement continuing 3");
         },
 
         findMatchingSelectionParent: function(testElementFunction) {
