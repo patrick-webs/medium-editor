@@ -1042,6 +1042,7 @@ else if (typeof define === 'function' && define.amd) {
                 !this.options.disableToolbar) {
 
                 newSelection = this.options.contentWindow.getSelection();
+                console.log("MediumEditor.checkSelection: obtained newSelection");
                 if ((!this.options.updateOnEmptySelection && newSelection.toString().trim() === '') ||
                     (this.options.allowMultiParagraphSelection === false && this.hasMultiParagraphs()) ||
                     this.selectionInContentEditableFalse()) {
@@ -1091,6 +1092,7 @@ else if (typeof define === 'function' && define.amd) {
                 newRange;
             this.selection = newSelection;
             this.selectionRange = this.selection.getRangeAt(0);
+            console.log("MediumEditor.checkSelectionElement at start offset " + this.selectionRange.startOffset);
 
             /*
             * In firefox, there are cases (ie doubleclick of a word) where the selectionRange start
@@ -1128,6 +1130,8 @@ else if (typeof define === 'function' && define.amd) {
                 }
             }
 
+            console.log("MediumEditor.checkSelectionElement continuing 2");
+
             for (i = 0; i < this.elements.length; i += 1) {
                 if (this.elements[i] === selectionElement) {
                     this.setToolbarButtonStates()
@@ -1140,6 +1144,8 @@ else if (typeof define === 'function' && define.amd) {
             if ( !this.options.staticToolbar ) {
                 this.hideToolbarActions();
             }
+
+            console.log("MediumEditor.checkSelectionElement continuing 3");
         },
 
         findMatchingSelectionParent: function(testElementFunction) {
